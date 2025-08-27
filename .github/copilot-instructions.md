@@ -71,7 +71,7 @@ lincoln-commons-aro-monitor/
    python -c "import requests; import bs4; print('✓ Scraping packages work')"
    ```
 
-2. **Scraper Functionality Test** (when scraper.py exists):
+3. **Scraper Functionality Test** (when scraper.py exists):
    ```bash
    source venv/bin/activate
    python src/scraper.py --test-mode
