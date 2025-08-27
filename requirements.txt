@@ -1,0 +1,17 @@
+# Web scraping dependencies
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# Email notifications
+smtplib  # Built-in Python module
+
+# Optional: SMS notifications via Twilio
+twilio>=8.0.0
+
+# HTML parsing and data handling
+html5lib>=1.1
+selenium>=4.15.0  # For JavaScript-heavy sites if needed
+
+# Logging and utilities
+python-dotenv>=1.0.0  # For environment variable management
