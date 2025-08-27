@@ -49,10 +49,10 @@ jobs:
       run: |
         python src/scraper.py
         
-    - name: Upload logs
-      if: always()
-      uses: actions/upload-artifact@v3
-      with:
-        name: monitor-logs-${{ github.run_number }}
-        path: aro_monitor.log
-        retention-days: 30
+    - - name: Upload logs
+  if: always()
+  uses: actions/upload-artifact@v4
+  with:
+    name: monitor-logs-${{ github.run_number }}
+    path: aro_monitor.log
+    retention-days: 30
