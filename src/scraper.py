@@ -15,8 +15,18 @@ from email.mime.multipart import MIMEMultipart
 from datetime import datetime
 from typing import List, Dict, Optional
 
+
 import requests
 from bs4 import BeautifulSoup
+
+# Optional Selenium for sites that block requests
+try:
+    from selenium import webdriver
+    from selenium.webdriver.chrome.options import Options as ChromeOptions
+    SELENIUM_AVAILABLE = True
+except ImportError:
+    SELENIUM_AVAILABLE = False
+    print("Selenium not installed. Falling back to requests.")
 
 # Optional Twilio for SMS
 try:
@@ -71,9 +81,26 @@ class LincolnCommonsMonitor:
                 self.twilio_client = Client(account_sid, auth_token)
 
     def fetch_floorplans(self) -> Optional[str]:
-        """Fetch the floorplans page content."""
+        """Fetch the floorplans page content using Selenium if available, else requests."""
+        if SELENIUM_AVAILABLE:
+            try:
+                logger.info(f"Fetching floorplans from {self.base_url} using Selenium")
+                options = ChromeOptions()
+                options.add_argument('--headless')
+                options.add_argument('--disable-gpu')
+                options.add_argument('--no-sandbox')
+                options.add_argument('--window-size=1920,1080')
+                driver = webdriver.Chrome(options=options)
+                driver.get(self.base_url)
+                time.sleep(3)  # Wait for page to load
+                html = driver.page_source
+                driver.quit()
+                return html
+            except Exception as e:
+                logger.error(f"Selenium error: {e}. Falling back to requests.")
+                # If Selenium fails, fall back to requests
         try:
-            logger.info(f"Fetching floorplans from {self.base_url}")
+            logger.info(f"Fetching floorplans from {self.base_url} using requests")
             response = self.session.get(self.base_url, timeout=30)
             response.raise_for_status()
             return response.text
