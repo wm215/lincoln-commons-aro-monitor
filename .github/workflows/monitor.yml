@@ -3,7 +3,8 @@ name: Lincoln Commons ARO Monitor
 on:
   schedule:
     # Run every hour during typical apartment hunting hours (9 AM to 9 PM EST)
-    - cron: '0 14-2 * * *'  # 9 AM to 9 PM EST (UTC-5)
+    - cron: '0 14-23 * * *'  # 9 AM to 11 PM EST (UTC-5)
+    - cron: '0 0-2 * * *'    # 12 AM to 2 AM EST (UTC-5)
   push:
     branches: [ main ]
   pull_request:
