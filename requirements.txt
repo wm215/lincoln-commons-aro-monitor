@@ -13,5 +13,8 @@ twilio>=8.0.0
 html5lib>=1.1
 selenium>=4.15.0  # For JavaScript-heavy sites if needed
 
+# WebDriver management for CI/CD
+webdriver-manager>=4.0.0
+
 # Logging and utilities
 python-dotenv>=1.0.0  # For environment variable management
