@@ -24,6 +24,14 @@ jobs:
       with:
         python-version: '3.11'
         
+    - name: Setup Chrome for Selenium
+      uses: browser-actions/setup-chrome@latest
+      with:
+        chrome-version: stable
+        
+    - name: Setup ChromeDriver  
+      uses: nanasess/setup-chromedriver@v2
+        
     - name: Cache dependencies
       uses: actions/cache@v3
       with:
@@ -49,4 +57,12 @@ jobs:
       run: |
         python src/scraper.py
         
-    continue-on-error: 
+    - name: Upload logs
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: monitor-logs-${{ github.run_number }}
+        path: aro_monitor.log
+        retention-days: 7
+        
+    continue-on-error: true
