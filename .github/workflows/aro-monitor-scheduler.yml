@@ -19,6 +19,14 @@ jobs:
       with:
         python-version: '3.11'
         
+    - name: Setup Chrome for Selenium
+      uses: browser-actions/setup-chrome@latest
+      with:
+        chrome-version: stable
+        
+    - name: Setup ChromeDriver  
+      uses: nanasess/setup-chromedriver@v2
+        
     - name: Cache dependencies
       uses: actions/cache@v3
       with:
@@ -51,3 +59,5 @@ jobs:
         name: daily-monitor-logs-${{ github.run_number }}
         path: aro_monitor.log
         retention-days: 30
+        
+    continue-on-error: true
